@@ -42,11 +42,20 @@ public class ApplePicker : MonoBehaviour
         {
             Destroy(tGO);
         }
+
+        // Create an int called basketIndex
+        // Assign it to the last element in the basketList collection
         int basketIndex = basketList.Count-1;
         GameObject tBasketGO = basketList[basketIndex];
+
         // Remove the Basket from the list and destroy the GameObject
         basketList.RemoveAt(basketIndex);
         Destroy(tBasketGO);
 
+        // If there are no Baskets left, restart the game
+        if ( basketList.Count == 0)
+        {
+            SceneManager.LoadScene("_Scene_0");
+        }
     }
 }
