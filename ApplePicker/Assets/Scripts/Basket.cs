@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Basket : MonoBehaviour
 {
+    public GameObject partSys;
+    
     [Header("Set Dynamically")]
 
     public Text scoreGT;
@@ -45,6 +47,7 @@ public class Basket : MonoBehaviour
         if (collidedWith.tag == "Apple")
         {
             Destroy(collidedWith);
+            //partSys.
 
             // Parse the text of the scoreGT into an int
             int score = int.Parse(scoreGT.text);
@@ -58,6 +61,8 @@ public class Basket : MonoBehaviour
             {
                 HighScore.score = score;
             }
+
+            FindObjectOfType<AudioManager>().Play("GrabApple");
         }
     }
 }
