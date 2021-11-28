@@ -8,24 +8,33 @@ public class ApplePicker : MonoBehaviour
     [Header("Set in Inspector")]
 
     public GameObject basketPrefab;
-    public int numBaskets = 3;
+    public GameObject heartPrefab;
+    public int numHearts = 3;
     public float basketsBottomY = -14f;
-    public float basketSpacingY = 2f;
-    public List<GameObject> basketList;
+    private float heartY = 12f;
+    private float heartX = -25f;
+    private float heartSpacingY = 3f;
+    public List<GameObject> heartList;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        basketList = new List<GameObject>();
-        for (int i=0; i<numBaskets; i++)
+        heartList = new List<GameObject>();
+
+        if (SceneManager.GetActiveScene().name == "_Scene_0")
         {
-            GameObject tBasketGO = Instantiate<GameObject>(basketPrefab);
-            Vector3 pos = Vector3.zero;
-            pos.y = basketsBottomY + (basketSpacingY * i);
-            tBasketGO.transform.position = pos;
-            basketList.Add(tBasketGO);
+            for (int i = 0; i < numHearts; i++)
+            {
+                GameObject tHeartGO = Instantiate<GameObject>(heartPrefab);
+                Vector3 pos = Vector3.zero;
+                pos.x = heartX + (heartSpacingY * i);
+                pos.y = heartY;
+                tHeartGO.transform.position = pos;
+                heartList.Add(tHeartGO);
+            }
         }
+        
     }
 
     // Update is called once per frame
@@ -45,15 +54,15 @@ public class ApplePicker : MonoBehaviour
 
         // Create an int called basketIndex
         // Assign it to the last element in the basketList collection
-        int basketIndex = basketList.Count-1;
-        GameObject tBasketGO = basketList[basketIndex];
+        int heartIndex = heartList.Count-1;
+        GameObject tBasketGO = heartList[heartIndex];
 
         // Remove the Basket from the list and destroy the GameObject
-        basketList.RemoveAt(basketIndex);
+        heartList.RemoveAt(heartIndex);
         Destroy(tBasketGO);
 
         // If there are no Baskets left, restart the game
-        if ( basketList.Count == 0)
+        if (heartList.Count == 0)
         {
             SceneManager.LoadScene("_Scene_0");
         }
